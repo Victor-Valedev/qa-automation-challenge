@@ -1,1 +1,7 @@
+#node
 /node_modules
+
+
+#videos e screenshots do cypress
+cypress/videos/
+cypress/screenshots/
