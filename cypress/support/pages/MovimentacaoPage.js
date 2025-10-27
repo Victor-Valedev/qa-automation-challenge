@@ -9,34 +9,55 @@ class MovimentacaoPage {
         inputData: () => cy.get('#data_transacao'),
         inputDataPagamento: () => cy.get('#data_pagamento'),
         checkPago: () => cy.get('#status_pago'),
-        botaoSalvar: () => cy.get('.btn-primary')
+        checkPendente: () => cy.get('#status_pendente'),
+        botaoSalvar: () => cy.get('.btn-primary'),
+        mensagemErro: () => cy.get('.alert')
     }
 
     acessarMovimentacao() {
         this.elements.menuMovimentacao().click()
     }
 
-    criarMovimentacao(descricao, valor, conta, tipo = 'receita') {
+    criarMovimentacao({
+        descricao,
+        valor,
+        conta,
+        tipo = 'REC',
+        situacao = 'pago',
+        dataTransacao,
+        dataPagamento,
+        interessado = 'Interessado Teste'
+    }) {
         this.acessarMovimentacao()
         this.elements.inputDescricao().type(descricao)
-        this.elements.inputValor().type(valor)
-        this.elements.inputInteressado().type('Interessado Teste')
+        this.elements.inputValor().type(valor.toString())
+        this.elements.inputInteressado().type(interessado)
         this.elements.selectConta().select(conta)
+        this.elements.selectTipo().select(tipo)
         
-        // Seleciona o tipo correto no dropdown
-        if (tipo === 'receita') {
-            this.elements.selectTipo().select('REC')
-        } else {
-            this.elements.selectTipo().select('DESP')
+        // Formata as datas se fornecidas, senão usa a data atual
+        const dataFormatada = (data) => {
+            if (data instanceof Date) {
+                return data.toLocaleDateString('pt-BR')
+            }
+            return data || new Date().toLocaleDateString('pt-BR')
         }
 
-        // Pega a data atual formatada
-        const dataAtual = new Date().toLocaleDateString('pt-BR')
-        this.elements.inputData().type(dataAtual)
-        this.elements.inputDataPagamento().type(dataAtual)
+        this.elements.inputData().type(dataFormatada(dataTransacao))
+        this.elements.inputDataPagamento().type(dataFormatada(dataPagamento))
         
-        this.elements.checkPago().click()
+        if (situacao === 'pago') {
+            this.elements.checkPago().click()
+        } else {
+            this.elements.checkPendente().click()
+        }
+
         this.elements.botaoSalvar().click()
+    }
+
+    // Método específico para validar mensagens de erro
+    validarMensagemErro(mensagem) {
+        this.elements.mensagemErro().should('contain', mensagem)
     }
 }
 
