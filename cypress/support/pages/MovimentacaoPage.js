@@ -11,7 +11,7 @@ class MovimentacaoPage {
         checkPago: () => cy.get('#status_pago'),
         checkPendente: () => cy.get('#status_pendente'),
         botaoSalvar: () => cy.get('.btn-primary'),
-        mensagemErro: () => cy.get('.alert')
+        mensagem: () => cy.get('.alert')
     }
 
     acessarMovimentacao() {
@@ -56,9 +56,10 @@ class MovimentacaoPage {
     }
 
     // Método específico para validar mensagens de erro
-    validarMensagemErro(mensagem) {
-        this.elements.mensagemErro().should('contain', mensagem)
+    validarAlerta(mensagem) {
+        this.elements.mensagem().should('contain', mensagem)
     }
+    
 }
 
 export default new MovimentacaoPage()

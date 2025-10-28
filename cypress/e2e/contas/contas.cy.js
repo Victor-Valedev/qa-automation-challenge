@@ -21,9 +21,9 @@ describe('Testes de Contas', () => {
 
         // Adiciona segunda conta
         ContasPage.adicionarConta(conta2)
-        cy.get('.alert')
-            .should('be.visible')
-            .and('contain', 'Conta adicionada com sucesso!')
+
+        //validação alerta
+        MovimentacaoPage.validarAlerta('Conta adicionada com sucesso!')
 
         // Verifica se as contas foram adicionadas
         ContasPage.acessarListagemContas()
@@ -59,14 +59,13 @@ describe('Testes de Contas', () => {
         ContasPage.editarConta(contaOriginal, contaModificada)
 
         // Validações
-        cy.get('.alert')
-            .should('be.visible')
-            .and('contain', 'Conta alterada com sucesso!')
+        MovimentacaoPage.validarAlerta('Conta alterada com sucesso!')
+
         cy.contains(contaModificada).should('be.visible')
         cy.contains(contaOriginal).should('not.exist')
     })
 
-    it.only('Não deve excluir conta com movimentação', () => {
+    it('Não deve excluir conta com movimentação', () => {
         const contaComMovimentacao = `Conta Movimentacao ${faker.word.sample()}`
 
         // Cria a conta
@@ -89,21 +88,16 @@ describe('Testes de Contas', () => {
         })
 
         // Valida que a movimentação foi criada
-        cy.get('.alert')
-            .should('be.visible')
-            .and('contain', 'Movimentação adicionada com sucesso')
+        MovimentacaoPage.validarAlerta('Movimentação adicionada com sucesso')
 
         // Tenta excluir a conta
         ContasPage.acessarListagemContas()
         ContasPage.excluirConta(contaComMovimentacao)
 
         // Validação da mensagem de erro
-        cy.get('.alert')
-            .should('be.visible')
-            //Aqui está com erro orgráfico na aplicação "Conta em uso na movimentações"
-            .and('contain', 'Conta em uso na movimentações')
-            .and('have.class', 'alert-danger')
-
+        //Aqui está com erro orgráfico na aplicação "Conta em uso na movimentações"
+        MovimentacaoPage.validarAlerta('Conta em uso na movimentações')
+        
         // Validação adicional: conta ainda existe na lista
         cy.contains('td', contaComMovimentacao).should('be.visible')
     })
@@ -124,11 +118,8 @@ describe('Testes de Contas', () => {
         // Tenta adicionar uma conta com o mesmo nome
         ContasPage.adicionarConta(nomeConta)
 
-        // Validações do erro
-        cy.get('.alert')
-            .should('be.visible')
-            .and('have.class', 'alert-danger')
-            .and('contain', 'Já existe uma conta com esse nome!')
+        // Validação alerta
+        MovimentacaoPage.validarAlerta('Já existe uma conta com esse nome!')
 
         // Validações adicionais
         cy.url().should('include', '/salvarConta') // Verifica se permanece na página de adicionar conta
