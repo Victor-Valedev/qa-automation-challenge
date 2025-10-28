@@ -96,7 +96,7 @@ describe('Movimentações', () => {
     })
 
     describe('Validações de campos', () => {
-        it.only('Deve validar data inválida', function() {
+        it('Deve validar data inválida', function() {
             MovimentacaoPage.criarMovimentacao({
                 descricao: 'Teste Data Inválida',
                 valor: 100,

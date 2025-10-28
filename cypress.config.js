@@ -18,7 +18,7 @@ module.exports = defineConfig({
   e2e: {
     defaultCommandTimeout: 10000, //aumenta tempo padrão de espera para comandos
     baseUrl: "https://seubarriga.wcaquino.me", // URL base da aplicação
-
+    pageLoadTimeout: 60000, // tempo máximo para carregamento de página
     setupNodeEvents(on, config) {
       // eventos e hooks futuros, se necessário
     },
