@@ -51,16 +51,25 @@ describe('Resumo Mensal', () => {
     })
 
     it('Deve excluir uma movimentação', function() {
-        // Criar uma movimentação para ser excluída
+        // Criar uma movimentação para ser excluída com data específica
+        const hoje = new Date()
+        const mesAtual = hoje.toLocaleString('pt-BR', { month: 'long' })
+        const anoAtual = hoje.getFullYear().toString()
+        
         const descricao = `Movimentação ${faker.string.alpha(5)}`
         MovimentacaoPage.criarMovimentacao({
             descricao: descricao,
             valor: 100,
-            conta: this.conta
+            conta: this.conta,
+            dataTransacao: hoje,
+            dataPagamento: hoje
         })
 
         // Acessar o resumo mensal
         ResumoPage.acessarResumo()
+
+        // Filtrar pelo mês e ano atual
+        ResumoPage.filtrarPorPeriodo(mesAtual, anoAtual)
 
         // Verificar se a movimentação existe
         ResumoPage.verificarMovimentacaoExiste(descricao)

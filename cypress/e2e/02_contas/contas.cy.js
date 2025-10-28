@@ -88,7 +88,8 @@ describe('Testes de Contas', () => {
         })
 
         // Valida que a movimentação foi criada
-        MovimentacaoPage.validarAlerta('Movimentação adicionada com sucesso!')
+        cy.contains('.alert', 'Movimentação adicionada com sucesso!')
+            .should('be.visible')
 
         // Tenta excluir a conta
         ContasPage.acessarListagemContas()

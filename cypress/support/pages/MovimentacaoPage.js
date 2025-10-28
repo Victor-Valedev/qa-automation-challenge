@@ -55,9 +55,11 @@ class MovimentacaoPage {
         this.elements.botaoSalvar().click()
     }
 
-    // Método específico para validar mensagens de erro
+    // Método específico para validar mensagens 
     validarAlerta(mensagem) {
-        this.elements.mensagem().should('contain', mensagem)
+        this.elements.mensagem()
+            .should('be.visible')
+            .and('contain', mensagem)
     }
     
 }

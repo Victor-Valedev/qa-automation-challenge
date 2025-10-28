@@ -36,6 +36,9 @@ class ResumoPage {
         this.elements.selectMes().select(meses[mes.toLowerCase()])
         this.elements.selectAno().select(ano)
         this.elements.btnBuscar().click()
+        
+        // Aguarda a tabela carregar
+        this.elements.tabelaMovimentacoes().should('exist')
     }
 
     excluirMovimentacao(descricao) {
@@ -43,7 +46,9 @@ class ResumoPage {
     }
 
     verificarMovimentacaoExiste(descricao) {
-        this.elements.linhaMovimentacao(descricao).should('exist')
+        this.elements.linhaMovimentacao(descricao)
+            .should('exist')
+            .and('be.visible')
     }
 
     verificarMovimentacaoNaoExiste(descricao) {
