@@ -20,13 +20,13 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '20'
+        node-version: '22'
     
     - name: Install dependencies
       run: npm install
 
-    - name: Run Cypress tests 
-      run: npx cypress run 
+    - name: Run Cypress tests with Chrome
+      run: npx cypress run --browser chrome
     
     - name: Generate HTML Report
       run: |

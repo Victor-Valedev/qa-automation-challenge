@@ -65,7 +65,7 @@ describe('Testes de Contas', () => {
         cy.contains(contaOriginal).should('not.exist')
     })
 
-    it.only('Não deve excluir conta com movimentação', () => {
+    it('Não deve excluir conta com movimentação', () => {
         const contaComMovimentacao = `Conta Movimentacao ${faker.word.sample()}`
 
         // Cria a conta
