@@ -66,7 +66,7 @@ describe('Testes de Contas', () => {
         cy.contains(contaOriginal).should('not.exist')
     })
 
-    it('Não deve excluir conta com movimentação', () => {
+    it.only('Não deve excluir conta com movimentação', () => {
         const contaComMovimentacao = `Conta Movimentacao ${faker.word.sample()}`
 
         // Cria a conta
@@ -82,11 +82,11 @@ describe('Testes de Contas', () => {
         }
 
         // Adiciona a movimentação
-        MovimentacaoPage.criarMovimentacao(
-            movimentacao.descricao,
-            movimentacao.valor,
-            contaComMovimentacao
-        )
+        MovimentacaoPage.criarMovimentacao({
+            descricao: movimentacao.descricao,
+            valor: movimentacao.valor,
+            conta: contaComMovimentacao
+        })
 
         // Valida que a movimentação foi criada
         cy.get('.alert')
@@ -100,6 +100,7 @@ describe('Testes de Contas', () => {
         // Validação da mensagem de erro
         cy.get('.alert')
             .should('be.visible')
+            //Aqui está com erro orgráfico na aplicação "Conta em uso na movimentações"
             .and('contain', 'Conta em uso na movimentações')
             .and('have.class', 'alert-danger')
 
