@@ -70,7 +70,7 @@ describe('Testes de Contas', () => {
 
         // Cria a conta
         ContasPage.adicionarConta(contaComMovimentacao)
-        cy.get('.alert')
+        cy.get('.alert.alert-success')
             .should('be.visible')
             .and('contain', 'Conta adicionada com sucesso!')
 
@@ -88,7 +88,7 @@ describe('Testes de Contas', () => {
         })
 
         // Valida que a movimentação foi criada
-        cy.contains('.alert', 'Movimentação adicionada com sucesso!')
+        cy.contains('.alert.alert-success', 'Movimentação adicionada com sucesso!')
             .should('be.visible')
 
         // Tenta excluir a conta
