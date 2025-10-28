@@ -1,0 +1,45 @@
+name: Seu Barriga Tests
+
+on: 
+  pull_request:
+    branches: 
+      - main
+  schedule:
+    - cron: '0 6 * * *' # todos os dias às 06:00 
+  workflow_dispatch:
+
+jobs:
+  cypress-tests:
+    name: Run Cypress and Publish Report
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+    
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run Cypress tests with Chrome
+      run: npx cypress run --browser chrome
+    
+    - name: Generate HTML Report
+      run: |
+        npx mochawesome-merge mochawesome-report/*.json > mochawesome.json
+        npx mochawesome-report-generator mochawesome.json -o mochawesome-html
+    
+    - name: Rename report to index.html
+      run: mv mochawesome-html/mochawesome.html mochawesome-html/index.html
+
+    - name: Deploy GitHub Pages
+      if: always()
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: mochawesome-html
+

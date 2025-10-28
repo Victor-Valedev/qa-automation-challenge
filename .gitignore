@@ -5,3 +5,8 @@
 #videos e screenshots do cypress
 cypress/videos/
 cypress/screenshots/
+
+#mochawesome reports
+mochawesome-report/
+mochawesome.json
+mochawesome-html/

@@ -7,6 +7,14 @@ module.exports = defineConfig({
   viewportWidth: 1366, // largura da tela
   viewportHeight: 768,  // altura da tela
 
+  reporter: 'mochawesome',
+  reporterOptions: {
+    reportDir: 'mochawesome-report',
+    overwrite: false,
+    html: false,
+    json: true
+  },
+
   e2e: {
     baseUrl: "https://seubarriga.wcaquino.me", // URL base da aplicação
 
