@@ -16,6 +16,7 @@ module.exports = defineConfig({
   },
 
   e2e: {
+    defaultCommandTimeout: 10000, //aumenta tempo padrão de espera para comandos
     baseUrl: "https://seubarriga.wcaquino.me", // URL base da aplicação
 
     setupNodeEvents(on, config) {
