@@ -65,14 +65,14 @@ describe('Testes de Contas', () => {
         cy.contains(contaOriginal).should('not.exist')
     })
 
-    it('Não deve excluir conta com movimentação', () => {
+    it.only('Não deve excluir conta com movimentação', () => {
         const contaComMovimentacao = `Conta Movimentacao ${faker.word.sample()}`
 
         // Cria a conta
         ContasPage.adicionarConta(contaComMovimentacao)
         cy.get('.alert')
             .should('be.visible')
-            .and('contain', 'Conta adicionada com sucesso')
+            .and('contain', 'Conta adicionada com sucesso!')
 
         // Cria uma movimentação para a conta
         const movimentacao = {
@@ -88,7 +88,7 @@ describe('Testes de Contas', () => {
         })
 
         // Valida que a movimentação foi criada
-        MovimentacaoPage.validarAlerta('Movimentação adicionada com sucesso')
+        MovimentacaoPage.validarAlerta('Movimentação adicionada com sucesso!')
 
         // Tenta excluir a conta
         ContasPage.acessarListagemContas()

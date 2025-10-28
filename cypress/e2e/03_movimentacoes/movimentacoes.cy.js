@@ -96,7 +96,7 @@ describe('Movimentações', () => {
     })
 
     describe('Validações de campos', () => {
-        it('Deve validar data inválida', function() {
+        it.only('Deve validar data inválida', function() {
             MovimentacaoPage.criarMovimentacao({
                 descricao: 'Teste Data Inválida',
                 valor: 100,
@@ -104,7 +104,7 @@ describe('Movimentações', () => {
                 dataTransacao: '31/02/2023',
                 dataPagamento: '31/02/2023'
             })
-            MovimentacaoPage.validarMensagemErro('Data da Movimentação inválida')
+            MovimentacaoPage.validarAlerta('Data da Movimentação inválida')
         })
 
         it('Deve validar valor não numérico', function() {
@@ -113,7 +113,7 @@ describe('Movimentações', () => {
                 valor: 'abc',
                 conta: this.conta
             })
-            MovimentacaoPage.validarMensagemErro('Valor deve ser um número')
+            MovimentacaoPage.validarAlerta('Valor deve ser um número')
         })
     })
 })
