@@ -6,6 +6,7 @@
     "cy:open": "cypress open"
   },
   "devDependencies": {
+    "@faker-js/faker": "^10.1.0",
     "cypress": "^15.5.0",
     "mochawesome": "^7.1.4",
     "mochawesome-merge": "^5.0.0",
